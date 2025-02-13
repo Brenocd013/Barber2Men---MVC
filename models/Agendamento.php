@@ -5,18 +5,30 @@ require_once 'Conexao.php';
 class Agendamento {
     public static function inserir($dados) {
         $pdo = Conexao::conectar();
+    
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM servicos WHERE id = :servico_id");
+        $stmt->bindParam(':servico_id', $dados['servico_id'], PDO::PARAM_INT);
+        $stmt->execute();
+        $servicoExiste = $stmt->fetchColumn();
+    
+        if ($servicoExiste == 0) {
+            return false;
+        }
+    
         $sql = "INSERT INTO agendamentos (cliente_id, servico_id, data, horario, observacao) 
                 VALUES (:cliente_id, :servico_id, :data, :horario, :observacao)";
         $stmt = $pdo->prepare($sql);
     
-        $stmt->bindParam(':cliente_id', $dados['cliente_id'], PDO::PARAM_INT);  
-        $stmt->bindParam(':servico_id', $dados['servico_id'], PDO::PARAM_INT);  
+        $stmt->bindParam(':cliente_id', $dados['cliente_id'], PDO::PARAM_INT);
+        $stmt->bindParam(':servico_id', $dados['servico_id'], PDO::PARAM_INT);
         $stmt->bindParam(':data', $dados['data'], PDO::PARAM_STR);
         $stmt->bindParam(':horario', $dados['horario'], PDO::PARAM_STR);  
         $stmt->bindParam(':observacao', $dados['observacao'], PDO::PARAM_STR);
     
-        return $stmt->execute();    
+        return $stmt->execute();
     }
+    
+    
     
     public static function mostrarTodos() {
         $pdo = Conexao::conectar();

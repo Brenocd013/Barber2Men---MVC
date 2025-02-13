@@ -14,7 +14,7 @@ class Produto {
         $stmt->bindParam(':preco', $dados['preco'], PDO::PARAM_STR);
         $stmt->bindParam(':descricao', $dados['descricao'], PDO::PARAM_STR);
     
-        return $stmt->execute(); // Executa a consulta
+        return $stmt->execute(); 
     }
     
     public static function mostrarTodos() {
@@ -39,13 +39,12 @@ class Produto {
     
         $stmt = $pdo->prepare($sql);
     
-        // Vincula os parâmetros corretamente
         $stmt->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
         $stmt->bindParam(':preco', $dados['preco'], PDO::PARAM_STR);
         $stmt->bindParam(':descricao', $dados['descricao'], PDO::PARAM_STR);
         $stmt->bindParam(':id', $dados['id'], PDO::PARAM_INT);
     
-        return $stmt->execute(); // Executa a consulta
+        return $stmt->execute();
     }
     
 
