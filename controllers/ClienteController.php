@@ -22,12 +22,26 @@ class ClienteController {
         require_once 'views/clientes/editar.php';
     }
 
-    public function update($dados) {
-        $dados['id'] = $_GET['id']; 
+    public function update() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dados = [
+                'id' => $_POST['id'],
+                'nome' => $_POST['nome'],
+                'cpf' => $_POST['cpf'],
+                'whatsapp' => $_POST['whatsapp']
+            ];
     
-        Cliente::atualizar($dados);
-        header("Location: index.php?classe=ClienteController&metodo=index");
+            if (Cliente::atualizar($dados)) {
+                header("Location: ?classe=ClienteController&metodo=index&msg=Cliente atualizado com sucesso!");
+                exit;
+            } else {
+                echo "<p class='text-danger text-center'>Erro ao atualizar o cliente.</p>";
+            }
+        } else {
+            echo "<p class='text-danger text-center'>Requisição inválida.</p>";
+        }
     }
+    
     
 
     public function delete($id) {

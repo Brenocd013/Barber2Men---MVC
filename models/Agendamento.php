@@ -55,8 +55,24 @@ class Agendamento {
         $stmt->bindValue(':id', $dados['id']);
         $stmt->execute();
     }
+    public static function verificarClienteExiste($cliente_id) {
+        $pdo = Conexao::conectar();
+        $sql = "SELECT COUNT(*) FROM clientes WHERE id = :cliente_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':cliente_id', $cliente_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
     
-
+    public static function verificarServicoExiste($servico_id) {
+        $pdo = Conexao::conectar();
+        $sql = "SELECT COUNT(*) FROM servicos WHERE id = :servico_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':servico_id', $servico_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+    
     public static function deletar($id) {
         $pdo = Conexao::conectar();
         $sql = "DELETE FROM agendamentos WHERE id = :id";

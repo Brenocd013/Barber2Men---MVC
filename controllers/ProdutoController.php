@@ -22,13 +22,26 @@ class ProdutoController {
         require_once 'views/produtos/editar.php';
     }
 
-    public function update($dados) {
-        $dados['id'] = $_GET['id']; 
-
-        Produto::atualizar($dados);
-        header("Location: index.php?classe=ProdutoController&metodo=index");
+    public function update() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dados = [
+                'id' => $_POST['id'],
+                'nome' => $_POST['nome'],
+                'preco' => $_POST['preco'],
+                'descricao' => $_POST['descricao']
+            ];
+    
+            if (Produto::atualizar($dados)) {
+                header("Location: ?classe=ProdutoController&metodo=index&msg=Produto atualizado com sucesso!");
+                exit;
+            } else {
+                echo "<p class='text-danger text-center'>Erro ao atualizar o produto.</p>";
+            }
+        } else {
+            echo "<p class='text-danger text-center'>Requisição inválida.</p>";
+        }
     }
-
+    
     public function delete($id) {
         Produto::deletar($id);
         header("Location: index.php?classe=ProdutoController&metodo=index");
