@@ -37,27 +37,27 @@
 <div class="container">
     <h2>🛍️ Editar Compra</h2>
 
-    <form method="POST" action="?classe=CompraController&metodo=update&id=<?= $compra['id'] ?>">
-        <input type="hidden" name="id" value="<?= $compra['id'] ?>">
+    <form method="POST" action="?classe=CompraController&metodo=update&id=<?= $compra->id ?>">
+        <input type="hidden" name="id" value="<?= $compra->id ?>">
 
         <div class="mb-3">
             <label class="form-label">ID do Cliente:</label>
-            <input type="number" class="form-control" name="cliente_id" value="<?= $compra['cliente_id'] ?>" required>
+            <input type="number" class="form-control" name="cliente_id" value="<?= $compra->cliente_id ?>" required>
         </div>
-
+ 
         <div class="mb-3">
             <label class="form-label">ID do Produto:</label>
-            <input type="number" class="form-control" name="produto_id" value="<?= $compra['produto_id'] ?>" required>
+            <input type="number" class="form-control" name="produto_id" value="<?= $compra->produto_id ?>" required>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Quantidade:</label>
-            <input type="number" class="form-control" name="quantidade" value="<?= $compra['quantidade'] ?>" required>
+            <input type="number" class="form-control" name="quantidade" value="<?= $compra->quantidade ?>" required>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Data da Compra:</label>
-            <input type="date" class="form-control" name="data" value="<?= $compra['data'] ?>" required>
+            <input type="date" class="form-control" name="data" value="<?= date('Y-m-d', strtotime($compra->data)) ?>" required>
         </div>
 
         <div class="btn-custom">

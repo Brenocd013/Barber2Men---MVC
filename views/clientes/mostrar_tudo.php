@@ -54,15 +54,15 @@
         <tbody>
             <?php foreach ($clientes as $cliente): ?>
                 <tr>
-                    <td><?= $cliente['id'] ?></td>
-                    <td><?= $cliente['nome'] ?></td>
-                    <td><?= $cliente['cpf'] ?></td>
-                    <td><?= $cliente['whatsapp'] ?></td>
+                    <td><?= $cliente->id ?></td>
+                    <td><?= $cliente->nome ?></td>
+                    <td><?= $cliente->cpf ?></td>
+                    <td><?= $cliente->whatsapp ?></td>
                     <td>
-                        <a href="?classe=ClienteController&metodo=edit&id=<?= $cliente['id'] ?>" class="btn btn-primary btn-sm">
+                        <a href="?classe=ClienteController&metodo=edit&id=<?= $cliente->id ?>" class="btn btn-primary btn-sm">
                             <i class="fas fa-edit"></i> Editar
                         </a>
-                        <a href="?classe=ClienteController&metodo=delete&id=<?= $cliente['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?')">
+                        <a href="?classe=ClienteController&metodo=delete&id=<?= $cliente->id ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?')">
                             <i class="fas fa-trash-alt"></i> Excluir
                         </a>
                     </td>

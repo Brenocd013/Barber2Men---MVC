@@ -16,30 +16,32 @@
                     <h4>Editar Agendamento</h4>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="?classe=AgendamentoController&metodo=update&id=<?= $agendamento['id'] ?>">
+                    <form method="POST" action="?classe=AgendamentoController&metodo=update&id=<?= $agendamento->id ?>">
+                        <input type="hidden" name="id" value="<?= $agendamento->id ?>">
+
                         <div class="mb-3">
                             <label class="form-label">ID do Cliente:</label>
-                            <input type="number" class="form-control" name="cliente_id" value="<?= $agendamento['cliente_id'] ?>" required>
+                            <input type="number" class="form-control" name="cliente_id" value="<?= $agendamento->cliente_id ?>" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">ID do Serviço:</label>
-                            <input type="number" class="form-control" name="servico_id" value="<?= $agendamento['servico_id'] ?>" required>
+                            <input type="number" class="form-control" name="servico_id" value="<?= $agendamento->servico_id ?>" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Data:</label>
-                            <input type="date" class="form-control" name="data" value="<?= $agendamento['data'] ?>" required>
+                            <input type="date" class="form-control" name="data" value="<?= $agendamento->data ?>" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Hora:</label>
-                            <input type="time" class="form-control" name="hora" value="<?= $agendamento['horario'] ?>" required>
+                            <input type="time" class="form-control" name="hora" value="<?= $agendamento->horario ?>" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Observação:</label>
-                            <textarea class="form-control" name="observacao" rows="3"><?= $agendamento['observacao'] ?></textarea>
+                            <textarea class="form-control" name="observacao" rows="3"><?= $agendamento->observacao ?></textarea>
                         </div>
 
                         <div class="d-flex justify-content-between">

@@ -54,15 +54,15 @@
         <tbody>
             <?php foreach ($servicos as $servico): ?>
                 <tr>
-                    <td><?= $servico['id'] ?></td>
-                    <td><?= $servico['nome'] ?></td>
-                    <td>R$ <?= number_format($servico['preco'], 2, ',', '.') ?></td>
-                    <td><?= $servico['descricao'] ?></td>
+                    <td><?= $servico->id ?></td>
+                    <td><?= $servico->nome ?></td>
+                    <td>R$ <?= number_format($servico->preco, 2, ',', '.') ?></td>
+                    <td><?= $servico->descricao ?></td>
                     <td>
-                        <a href="?classe=ServicoController&metodo=edit&id=<?= $servico['id'] ?>" class="btn btn-primary btn-sm">
+                        <a href="?classe=ServicoController&metodo=edit&id=<?= $servico->id ?>" class="btn btn-primary btn-sm">
                             <i class="fas fa-edit"></i> Editar
                         </a>
-                        <a href="?classe=ServicoController&metodo=delete&id=<?= $servico['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este serviço?')">
+                        <a href="?classe=ServicoController&metodo=delete&id=<?= $servico->id ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este serviço?')">
                             <i class="fas fa-trash-alt"></i> Excluir
                         </a>
                     </td>

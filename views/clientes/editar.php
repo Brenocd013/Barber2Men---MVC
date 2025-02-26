@@ -40,21 +40,21 @@
     ?>
 
     <form action="?classe=ClienteController&metodo=update" method="POST">
-        <input type="hidden" name="id" value="<?= $cliente['id'] ?>">
+        <input type="hidden" name="id" value="<?= $cliente->id ?>">
 
         <div class="mb-3">
             <label for="nome" class="form-label">Nome:</label>
-            <input type="text" class="form-control" id="nome" name="nome" value="<?= htmlspecialchars($cliente['nome']) ?>" required>
+            <input type="text" class="form-control" id="nome" name="nome" value="<?= htmlspecialchars($cliente->nome) ?>" required>
         </div>
 
         <div class="mb-3">
             <label for="cpf" class="form-label">CPF:</label>
-            <input type="text" class="form-control" id="cpf" name="cpf" value="<?= htmlspecialchars($cliente['cpf']) ?>" required>
+            <input type="text" class="form-control" id="cpf" name="cpf" value="<?= htmlspecialchars($cliente->cpf) ?>" required>
         </div>
 
         <div class="mb-3">
             <label for="whatsapp" class="form-label">WhatsApp:</label>
-            <input type="text" class="form-control" id="whatsapp" name="whatsapp" value="<?= htmlspecialchars($cliente['whatsapp']) ?>" required>
+            <input type="text" class="form-control" id="whatsapp" name="whatsapp" value="<?= htmlspecialchars($cliente->whatsapp) ?>" required>
         </div>
 
         <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Salvar Alterações</button>

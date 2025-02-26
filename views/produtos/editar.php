@@ -32,21 +32,21 @@
     <h2 class="text-center mb-4">✏️ Editar Produto</h2>
 
     <form method="POST" action="?classe=ProdutoController&metodo=update">
-        <input type="hidden" name="id" value="<?= $produto['id'] ?>">
+        <input type="hidden" name="id" value="<?= $produto->id ?>">
 
         <div class="mb-3">
             <label class="form-label">Nome do Produto:</label>
-            <input type="text" class="form-control" name="nome" value="<?= htmlspecialchars($produto['nome']) ?>" required>
+            <input type="text" class="form-control" name="nome" value="<?= htmlspecialchars($produto->nome) ?>" required>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Preço:</label>
-            <input type="number" step="0.01" class="form-control" name="preco" value="<?= htmlspecialchars($produto['preco']) ?>" required>
+            <input type="number" step="0.01" class="form-control" name="preco" value="<?= htmlspecialchars($produto->preco) ?>" required>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Descrição:</label>
-            <textarea class="form-control" name="descricao" rows="3" required><?= htmlspecialchars($produto['descricao']) ?></textarea>
+            <textarea class="form-control" name="descricao" rows="3" required><?= htmlspecialchars($produto->descricao) ?></textarea>
         </div>
 
         <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Atualizar</button>

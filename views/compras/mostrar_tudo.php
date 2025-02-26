@@ -55,16 +55,16 @@
         <tbody>
             <?php foreach ($compras as $compra): ?>
                 <tr>
-                    <td><?= $compra['id'] ?></td>
-                    <td><?= $compra['cliente_id'] ?></td>
-                    <td><?= $compra['produto_id'] ?></td>
-                    <td><?= $compra['quantidade'] ?></td>
-                    <td><?= date('d/m/Y', strtotime($compra['data'])) ?></td>
+                    <td><?= $compra->id ?></td>
+                    <td><?= $compra->cliente_id ?></td>
+                    <td><?= $compra->produto_id ?></td>
+                    <td><?= $compra->quantidade ?></td>
+                    <td><?= date('d/m/Y', strtotime($compra->data)) ?></td>
                     <td>
-                        <a href="?classe=CompraController&metodo=edit&id=<?= $compra['id'] ?>" class="btn btn-primary btn-sm">
+                        <a href="?classe=CompraController&metodo=edit&id=<?= $compra->id ?>" class="btn btn-primary btn-sm">
                             <i class="fas fa-edit"></i> Editar
                         </a>
-                        <a href="?classe=CompraController&metodo=delete&id=<?= $compra['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir esta compra?')">
+                        <a href="?classe=CompraController&metodo=delete&id=<?= $compra->id ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir esta compra?')">
                             <i class="fas fa-trash-alt"></i> Excluir
                         </a>
                     </td>

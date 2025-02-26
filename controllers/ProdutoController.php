@@ -1,10 +1,17 @@
 <?php
 
 require_once 'models/Produto.php';
+require_once 'models/DAO/ProdutoDAO.php';
 
 class ProdutoController {
+    private $produtoDAO;
+
+    public function __construct() {
+        $this->produtoDAO = new ProdutoDAO();
+    }
+
     public function index() {
-        $produtos = Produto::mostrarTodos();
+        $produtos = $this->produtoDAO->mostrar_tudo();
         require_once 'views/produtos/mostrar_tudo.php';
     }
 
@@ -12,38 +19,39 @@ class ProdutoController {
         require_once 'views/produtos/novo.php';
     }
 
-    public function store($dados) {
-        Produto::inserir($dados);
+    public function store() {
+        $produto = new Produto();
+        $produto->nome = $_POST['nome'];
+        $produto->preco = $_POST['preco'];
+        $produto->descricao = $_POST['descricao'];
+
+        $this->produtoDAO->inserir($produto);
         header("Location: index.php?classe=ProdutoController&metodo=index");
+        exit;
     }
 
-    public function edit($id) {
-        $produto = Produto::mostrarRegistro($id);
+    public function edit() {
+        $id = $_GET['id'];
+        $produto = $this->produtoDAO->buscar_por_id($id);
         require_once 'views/produtos/editar.php';
     }
 
     public function update() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $dados = [
-                'id' => $_POST['id'],
-                'nome' => $_POST['nome'],
-                'preco' => $_POST['preco'],
-                'descricao' => $_POST['descricao']
-            ];
-    
-            if (Produto::atualizar($dados)) {
-                header("Location: ?classe=ProdutoController&metodo=index&msg=Produto atualizado com sucesso!");
-                exit;
-            } else {
-                echo "<p class='text-danger text-center'>Erro ao atualizar o produto.</p>";
-            }
-        } else {
-            echo "<p class='text-danger text-center'>Requisição inválida.</p>";
-        }
-    }
-    
-    public function delete($id) {
-        Produto::deletar($id);
+        $produto = new Produto();
+        $produto->id = $_POST['id'];
+        $produto->nome = $_POST['nome'];
+        $produto->preco = $_POST['preco'];
+        $produto->descricao = $_POST['descricao'];
+
+        $this->produtoDAO->atualizar($produto);
         header("Location: index.php?classe=ProdutoController&metodo=index");
+        exit;
+    }
+
+    public function delete() {
+        $id = $_GET['id'];
+        $this->produtoDAO->excluir($id);
+        header("Location: index.php?classe=ProdutoController&metodo=index");
+        exit;
     }
 }

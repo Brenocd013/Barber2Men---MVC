@@ -1,10 +1,17 @@
 <?php
 
 require_once 'models/Servico.php';
+require_once 'models/DAO/ServicoDAO.php';
 
 class ServicoController {
+    private $servicoDAO;
+
+    public function __construct() {
+        $this->servicoDAO = new ServicoDAO();
+    }
+
     public function index() {
-        $servicos = Servico::mostrarTodos();
+        $servicos = $this->servicoDAO->mostrar_tudo();
         require_once 'views/servicos/mostrar_tudo.php';
     }
 
@@ -12,36 +19,39 @@ class ServicoController {
         require_once 'views/servicos/novo.php';
     }
 
-    public function store($dados) {
-        Servico::inserir($dados);
+    public function store() {
+        $servico = new Servico();
+        $servico->nome = $_POST['nome'];
+        $servico->preco = $_POST['preco'];
+        $servico->descricao = $_POST['descricao'];
+
+        $this->servicoDAO->inserir($servico);
         header("Location: index.php?classe=ServicoController&metodo=index");
+        exit;
     }
 
-    public function edit($id) {
-        $servico = Servico::mostrarRegistro($id);
+    public function edit() {
+        $id = $_GET['id'];
+        $servico = $this->servicoDAO->buscar_por_id($id);
         require_once 'views/servicos/editar.php';
     }
+
     public function update() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $dados = [
-                'id' => $_POST['id'],
-                'nome' => $_POST['nome'],
-                'preco' => $_POST['preco'],
-                'descricao' => $_POST['descricao']
-            ];
-    
-            if (Servico::atualizar($dados)) {
-                header("Location: ?classe=ServicoController&metodo=index&msg=Serviço atualizado com sucesso!");
-                exit;
-            } else {
-                echo "<p class='text-danger text-center'>Erro ao atualizar o serviço.</p>";
-            }
-        } else {
-            echo "<p class='text-danger text-center'>Requisição inválida.</p>";
-        }
-    }
-    public function delete($id) {
-        Servico::deletar($id);
+        $servico = new Servico();
+        $servico->id = $_POST['id'];
+        $servico->nome = $_POST['nome'];
+        $servico->preco = $_POST['preco'];
+        $servico->descricao = $_POST['descricao'];
+
+        $this->servicoDAO->atualizar($servico);
         header("Location: index.php?classe=ServicoController&metodo=index");
+        exit;
+    }
+
+    public function delete() {
+        $id = $_GET['id'];
+        $this->servicoDAO->excluir($id);
+        header("Location: index.php?classe=ServicoController&metodo=index");
+        exit;
     }
 }

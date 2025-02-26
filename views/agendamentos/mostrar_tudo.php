@@ -1,4 +1,4 @@
-[<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -32,7 +32,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container"> 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>📅 Gerenciar Agendamentos</h2>
         <a href="index.php" class="btn btn-outline-primary"><i class="fas fa-home"></i> Voltar à Home</a>
@@ -54,25 +54,26 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($agendamentos as $agendamento): ?>
-                <tr>
-                    <td><?= $agendamento['id'] ?></td>
-                    <td><?= $agendamento['cliente_id'] ?></td>
-                    <td><?= $agendamento['servico_id'] ?></td>
-                    <td><?= date('d/m/Y', strtotime($agendamento['data'])) ?></td>
-                    <td><?= date('H:i', strtotime($agendamento['horario'])) ?></td>
-                    <td><?= $agendamento['observacao'] ?></td>
-                    <td>
-                        <a href="?classe=AgendamentoController&metodo=edit&id=<?= $agendamento['id'] ?>" class="btn btn-primary btn-sm">
-                            <i class="fas fa-edit"></i> Editar
-                        </a>
-                        <a href="?classe=AgendamentoController&metodo=delete&id=<?= $agendamento['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este agendamento?')">
-                            <i class="fas fa-trash-alt"></i> Excluir
-                        </a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
+    <?php foreach ($agendamentos as $agendamento): ?>
+        <tr>
+            <td><?= $agendamento->id ?></td>
+            <td><?= $agendamento->cliente_id ?></td>
+            <td><?= $agendamento->servico_id ?></td>
+            <td><?= date('d/m/Y', strtotime($agendamento->data)) ?></td>
+            <td><?= date('H:i', strtotime($agendamento->horario)) ?></td>
+            <td><?= $agendamento->observacao ?></td>
+            <td>
+                <a href="?classe=AgendamentoController&metodo=edit&id=<?= $agendamento->id ?>" class="btn btn-primary btn-sm">
+                    <i class="fas fa-edit"></i> Editar
+                </a>
+                <a href="?classe=AgendamentoController&metodo=delete&id=<?= $agendamento->id ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este agendamento?')">
+                    <i class="fas fa-trash-alt"></i> Excluir
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</tbody>
+
     </table>
 
     <a href="?classe=AgendamentoController&metodo=create" class="btn btn-success"><i class="fas fa-plus"></i> Novo Agendamento</a>

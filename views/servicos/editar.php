@@ -33,21 +33,21 @@
     <h2 class="text-center mb-4">✏️ Editar Serviço</h2>
 
     <form method="POST" action="?classe=ServicoController&metodo=update">
-        <input type="hidden" name="id" value="<?= $servico['id'] ?>">
+        <input type="hidden" name="id" value="<?= $servico->id ?>">
 
         <div class="mb-3">
             <label class="form-label">Nome do Serviço:</label>
-            <input type="text" class="form-control" name="nome" value="<?= htmlspecialchars($servico['nome']) ?>" required>
+            <input type="text" class="form-control" name="nome" value="<?= htmlspecialchars($servico->nome) ?>" required>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Preço:</label>
-            <input type="number" step="0.01" class="form-control" name="preco" value="<?= htmlspecialchars($servico['preco']) ?>" required>
+            <input type="number" step="0.01" class="form-control" name="preco" value="<?= htmlspecialchars($servico->preco) ?>" required>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Descrição:</label>
-            <textarea class="form-control" name="descricao" rows="3" required><?= htmlspecialchars($servico['descricao']) ?></textarea>
+            <textarea class="form-control" name="descricao" rows="3" required><?= htmlspecialchars($servico->descricao) ?></textarea>
         </div>
 
         <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Atualizar</button>

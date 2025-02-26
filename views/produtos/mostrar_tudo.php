@@ -54,15 +54,15 @@
         <tbody>
             <?php foreach ($produtos as $produto): ?>
                 <tr>
-                    <td><?= $produto['id'] ?></td>
-                    <td><?= $produto['nome'] ?></td>
-                    <td>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></td>
-                    <td><?= $produto['descricao'] ?></td>
+                    <td><?= $produto->id ?></td>
+                    <td><?= $produto->nome ?></td>
+                    <td>R$ <?= number_format($produto->preco, 2, ',', '.') ?></td>
+                    <td><?= $produto->descricao ?></td>
                     <td>
-                        <a href="?classe=ProdutoController&metodo=edit&id=<?= $produto['id'] ?>" class="btn btn-primary btn-sm">
+                        <a href="?classe=ProdutoController&metodo=edit&id=<?= $produto->id ?>" class="btn btn-primary btn-sm">
                             <i class="fas fa-edit"></i> Editar
                         </a>
-                        <a href="?classe=ProdutoController&metodo=delete&id=<?= $produto['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este produto?')">
+                        <a href="?classe=ProdutoController&metodo=delete&id=<?= $produto->id ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este produto?')">
                             <i class="fas fa-trash-alt"></i> Excluir
                         </a>
                     </td>

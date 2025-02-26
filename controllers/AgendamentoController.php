@@ -1,10 +1,17 @@
 <?php
 
 require_once 'models/Agendamento.php';
+require_once 'models/DAO/AgendamentoDAO.php';
 
 class AgendamentoController {
+    private $agendamentoDAO;
+
+    public function __construct() {
+        $this->agendamentoDAO = new AgendamentoDAO();
+    }
+
     public function index() {
-        $agendamentos = Agendamento::mostrarTodos();
+        $agendamentos = $this->agendamentoDAO->mostrar_tudo();
         require_once 'views/agendamentos/mostrar_tudo.php';
     }
 
@@ -13,54 +20,62 @@ class AgendamentoController {
     }
 
     public function store() {
-        $dados = [
-            'cliente_id' => $_POST['cliente_id'],
-            'servico_id' => $_POST['servico_id'],
-            'data' => $_POST['data'],
-            'hora' => $_POST['hora'],
-            'observacao' => $_POST['observacao']
-        ];
-    
-        $erro = ""; 
-    
-       
-        if (!Agendamento::verificarClienteExiste($dados['cliente_id'])) {
-            $erro .= "❌ Cliente ID " . htmlspecialchars($dados['cliente_id']) . " não encontrado.";
+        $agendamento = new Agendamento();
+        $agendamento->cliente_id = $_POST['cliente_id'];
+        $agendamento->servico_id = $_POST['servico_id'];
+        $agendamento->data = $_POST['data'];
+        $agendamento->horario = $_POST['hora'];
+        $agendamento->observacao = $_POST['observacao'];
+
+        $erro = "";
+
+        // Validações antes de inserir
+        if (!$this->agendamentoDAO->verificarClienteExiste($agendamento->cliente_id)) {
+            $erro .= "❌ Cliente ID " . htmlspecialchars($agendamento->cliente_id) . " não encontrado.<br>";
         }
-    
-        if (!Agendamento::verificarServicoExiste($dados['servico_id'])) {
-            $erro .= "❌ Serviço ID " . htmlspecialchars($dados['servico_id']) . " não encontrado.";
+
+        if (!$this->agendamentoDAO->verificarServicoExiste($agendamento->servico_id)) {
+            $erro .= "❌ Serviço ID " . htmlspecialchars($agendamento->servico_id) . " não encontrado.<br>";
         }
-    
+
         if (!empty($erro)) {
             header("Location: ?classe=AgendamentoController&metodo=create&erro=" . urlencode($erro));
             exit;
         }
-    
-        if (Agendamento::inserir($dados)) {
-            header("Location: ?classe=AgendamentoController&metodo=index&msg=Agendamento cadastrado com sucesso!");
+
+        if ($this->agendamentoDAO->inserir($agendamento)) {
+            header("Location: index.php?classe=AgendamentoController&metodo=index&msg=Agendamento cadastrado com sucesso!");
             exit;
         } else {
             header("Location: ?classe=AgendamentoController&metodo=create&erro=" . urlencode("Erro ao cadastrar agendamento."));
             exit;
         }
     }
-    
 
-    public function edit($id) {
-        $agendamento = Agendamento::mostrarRegistro($id);
+    public function edit() {
+        $id = $_GET['id'];
+        $agendamento = $this->agendamentoDAO->buscar_por_id($id);
         require_once 'views/agendamentos/editar.php';
     }
 
-    public function update($dados) {
+    public function update() {
+        $agendamento = new Agendamento();
+        $agendamento->id = $_POST['id'];
+        $agendamento->cliente_id = $_POST['cliente_id'];
+        $agendamento->servico_id = $_POST['servico_id'];
+        $agendamento->data = $_POST['data'];
+        $agendamento->horario = $_POST['hora'];
+        $agendamento->observacao = $_POST['observacao'];
 
-        $dados['id'] = $_GET['id'];
-        Agendamento::atualizar($dados);
+        $this->agendamentoDAO->atualizar($agendamento);
         header("Location: index.php?classe=AgendamentoController&metodo=index");
+        exit;
     }
 
-    public function delete($id) {
-        Agendamento::deletar($id);
+    public function delete() {
+        $id = $_GET['id'];
+        $this->agendamentoDAO->excluir($id);
         header("Location: index.php?classe=AgendamentoController&metodo=index");
+        exit;
     }
 }
